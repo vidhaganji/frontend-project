@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Second Page</title>
+    <style>
+        body {
+            background-color: #333; /* Dark professional background color */
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        h2 {
+            font-size: 3rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px #000;
+            text-align: center;
+            animation: fadeIn 2s ease; /* Fade-in animation */
+        }
+
+        .button-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-direction: column; /* Center the buttons vertically */
+            position: absolute;
+            z-index: 2; /* Place the buttons on top of the moving image */
+        }
+
+        .button {
+            background-color: #000; /* Dark professional button color */
+            color: #fff;
+            font-size: 1.8rem; /* Make the buttons bigger */
+            border: none;
+            padding: 20px 40px; /* Increase button padding */
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s; /* Smooth hover effect */
+        }
+
+        .button:hover {
+            transform: translate(0, -5px); /* Move up on hover */
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); /* Glow effect on hover */
+        }
+
+        .button:active {
+            animation: sparkle 1s ease; /* Sparkle effect on button press */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes sparkle {
+            0% {
+                background: #000;
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            }
+            100% {
+                background: #000;
+                box-shadow: none;
+            }
+        }
+
+        /* Image animation */
+        .moving-image {
+            width: 600px; /* Adjust the width to make the image smaller */
+            height: auto;
+            max-height: 100vh; /* Limit the image height to the viewport height */
+            max-width: 100%; /* Limit the image width to the viewport width */
+            animation: moveUpDown 4s ease infinite;
+            opacity: 0.4; /* Set the image opacity */
+            z-index: 1; /* Place the image behind the buttons */
+        }
+
+        @keyframes moveUpDown {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px); /* Adjust the vertical movement distance */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Image with animation -->
+    <img src="djwidjwijd.gif" class="moving-image" alt="Moving Image">
+    <div class="button-container">
+        <button class="button">About Us</button>
+        <button class="button">Documentation</button>
+        <button class="button">Quiz</button>
+        <button class="button">Our Project</button>
+    </div>
+</body>
+</html>
+

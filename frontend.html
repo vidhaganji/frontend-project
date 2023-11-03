@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Night at the Museum: Country Mapping</title>
+    <style>
+        body {
+            background-color: #333; /* Dark professional background color */
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Globe animation */
+        .globe {
+            position: absolute;
+            width: 300px; /* Make the globe bigger */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: spin 20s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        h1 {
+            font-size: 4rem; /* Make the title font size bigger */
+            color: #fff;
+            text-shadow: 2px 2px 4px #000;
+            text-align: center;
+            animation: fadeIn 2s ease; /* Fade-in animation */
+            transition: transform 0.2s; /* Smooth hover effect */
+        }
+
+        .button {
+            background-color: #000; /* Dark professional button color */
+            color: #fff;
+            font-size: 2rem; /* Make the button font size bigger */
+            border: none;
+            padding: 20px 40px; /* Make the button bigger */
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s; /* Smooth hover effect */
+            animation: scaleIn 1s ease; /* Button scale-in animation */
+        }
+
+        .button:hover {
+            transform: translate(0, -5px); /* Aesthetic hover movement */
+        }
+
+        .button:active {
+            animation: sparkle 1s ease; /* Sparkle effect on button press */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.8);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes sparkle {
+            0% {
+                background: #000;
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            }
+            100% {
+                background: #000;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <img src="Earth_Western_Hemisphere_transparent_background.png" class="globe" alt="Rotating Globe">
+    <h1>Night at the Museum:<br>Country Mapping</h1>
+    <a href="frontend_alt.html">
+        <button class="button">Let's Go!</button>
+    </a>
+</body>
+</html>
