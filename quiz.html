@@ -1,122 +1,153 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Geography Quiz</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNA Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .quiz-container {
+            text-align: center;
+        }
+        .btn {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #options {
+            margin-top: 20px;
+        }
+        #score {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .hide {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>Geography Quiz</h1>
-    <div id="quiz-container">
-        <p id="question"></p>
-        <ul id="options">
-            <li><input type="radio" name="answer" id="option1"><label for="option1" id="label1"></label></li>
-            <li><input type="radio" name="answer" id="option2"><label for="option2" id="label2"></label></li>
-            <li><input type="radio" name="answer" id="option3"><label for="option3" id="label3"></label></li>
-        </ul>
-        <button id="next-button">Next</button>
+    <div class="quiz-container">
+        <h1>Geography Quiz</h1>
+        <div id="question"></div>
+        <div id="options"></div>
+        <button id="next-btn" class="btn hide">Next</button>
+        <div id="score"></div>
     </div>
-    <p id="result"></p>
-
     <script>
-        const questions = [
-            {
-                question: "What is the capital of France?",
-                options: ["London", "Madrid", "Paris", "Berlin"],
-                correctAnswer: "Paris"
-            },
-            {
-                question: "What is the capital of Japan?",
-                options: ["Tokyo", "Beijing", "Seoul", "Bangkok"],
-                correctAnswer: "Tokyo"
-            },
-            {
-                question: "What is the capital of Canada?",
-                options: ["Toronto", "Ottawa", "Vancouver", "Montreal"],
-                correctAnswer: "Ottawa"
-            },
-            // Add more questions here
-            {
-                question: "What is the capital of Brazil?",
-                options: ["Buenos Aires", "São Paulo", "Brasília", "Rio de Janeiro"],
-                correctAnswer: "Brasília"
-            },
-            {
-                question: "Which river is the longest in the world?",
-                options: ["Nile", "Amazon", "Mississippi", "Yangtze"],
-                correctAnswer: "Nile"
-            },
-            {
-                question: "What is the largest continent by land area?",
-                options: ["Africa", "Asia", "North America", "Europe"],
-                correctAnswer: "Asia"
-            },
-            {
-                question: "Which country is known as the Land of the Rising Sun?",
-                options: ["South Korea", "China", "Japan", "Thailand"],
-                correctAnswer: "Japan"
-            },
-            {
-                question: "What is the smallest country in the world?",
-                options: ["Monaco", "San Marino", "Vatican City", "Liechtenstein"],
-                correctAnswer: "Vatican City"
-            },
-            {
-                question: "Which African country is known as the Rainbow Nation?",
-                options: ["Nigeria", "Kenya", "South Africa", "Ghana"],
-                correctAnswer: "South Africa"
-            },
-            {
-                question: "What is the capital of Australia?",
-                options: ["Sydney", "Melbourne", "Canberra", "Brisbane"],
-                correctAnswer: "Canberra"
-            }
+        const quizData = [
+        {
+            question: "What is the capital of France?",
+            options: ["London", "Madrid", "Paris", "Berlin"],
+            correctAnswer: "Paris"
+        },
+        {
+            question: "What is the capital of Japan?",
+            options: ["Tokyo", "Beijing", "Seoul", "Bangkok"],
+            correctAnswer: "Tokyo"
+        },
+        {
+            question: "What is the capital of Canada?",
+            options: ["Toronto", "Ottawa", "Vancouver", "Montreal"],
+            correctAnswer: "Ottawa"
+        },
+        // Add more questions here
+        {
+            question: "What is the capital of Brazil?",
+            options: ["Buenos Aires", "São Paulo", "Brasília", "Rio de Janeiro"],
+            correctAnswer: "Brasília"
+        },
+        {
+            question: "Which river is the longest in the world?",
+            options: ["Nile", "Amazon", "Mississippi", "Yangtze"],
+            correctAnswer: "Nile"
+        },
+        {
+            question: "What is the largest continent by land area?",
+            options: ["Africa", "Asia", "North America", "Europe"],
+            correctAnswer: "Asia"
+        },
+        {
+            question: "Which country is known as the Land of the Rising Sun?",
+            options: ["South Korea", "China", "Japan", "Thailand"],
+            correctAnswer: "Japan"
+        },
+        {
+            question: "What is the smallest country in the world?",
+            options: ["Monaco", "San Marino", "Vatican City", "Liechtenstein"],
+            correctAnswer: "Vatican City"
+        },
+        {
+            question: "Which African country is known as the Rainbow Nation?",
+            options: ["Nigeria", "Kenya", "South Africa", "Ghana"],
+            correctAnswer: "South Africa"
+        },
+            // Add more questions as needed
         ];
-
-        let currentQuestion = 0;
+        const questionElement = document.getElementById('question');
+        const optionButtons = document.getElementById('options');
+        const nextButton = document.getElementById('next-btn');
+        const scoreDisplay = document.getElementById('score');
+        let currentQuestionIndex = 0;
         let score = 0;
-
-        const questionElement = document.getElementById("question");
-        const optionsElement = document.getElementById("options");
-        const resultElement = document.getElementById("result");
-
-        function loadQuestion() {
-            const question = questions[currentQuestion];
-            questionElement.textContent = question.question;
-
-            for (let i = 0; i < 3; i++) {
-                document.getElementById(`label${i + 1}`).textContent = question.options[i];
-                document.getElementById(`option${i + 1}`).value = question.options[i];
-            }
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            nextButton.classList.add('hide');
+            showQuestion(quizData[currentQuestionIndex]);
         }
-
-        function checkAnswer() {
-            const selectedAnswer = document.querySelector('input[name="answer"]:checked');
-            if (!selectedAnswer) return;
-
-            const answer = selectedAnswer.value;
-            const correctAnswer = questions[currentQuestion].correctAnswer;
-            if (answer === correctAnswer) {
+        function showQuestion(question) {
+            questionElement.innerText = question.question;
+            optionButtons.innerHTML = '';
+            question.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('btn');
+                button.addEventListener('click', selectAnswer);
+                optionButtons.appendChild(button);
+            });
+        }
+        function selectAnswer(e) {
+            const selectedButton = e.target;
+            const correct = selectedButton.innerText === quizData[currentQuestionIndex].correctAnswer;
+            if (correct) {
                 score++;
             }
-
-            currentQuestion++;
-
-            if (currentQuestion < questions.length) {
-                loadQuestion();
-                selectedAnswer.checked = false;
+            Array.from(optionButtons.children).forEach(button => {
+                button.disabled = true;
+            });
+            if (currentQuestionIndex < quizData.length - 1) {
+                nextButton.classList.remove('hide');
             } else {
-                displayResult();
+                showScore();
             }
         }
-
-        function displayResult() {
-            optionsElement.style.display = "none";
-            resultElement.textContent = `You scored ${score} out of ${questions.length} questions.`;
+        function showScore() {
+            scoreDisplay.innerText = `Your score: ${score} out of ${quizData.length}`;
         }
-
-        loadQuestion();
-        document.getElementById("next-button").addEventListener("click", checkAnswer);
+        function resetState() {
+            nextButton.classList.add('hide');
+            while (optionButtons.firstChild) {
+                optionButtons.removeChild(optionButtons.firstChild);
+            }
+            Array.from(optionButtons.children).forEach(button => {
+                button.disabled = false;
+            });
+        }
+        nextButton.addEventListener('click', () => {
+            currentQuestionIndex++;
+            resetState();
+            showQuestion(quizData[currentQuestionIndex]);
+        });
+        startQuiz();
     </script>
 </body>
 </html>
-
-
