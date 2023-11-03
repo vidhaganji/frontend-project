@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Geography Quiz</title>
+</head>
+<body>
+    <h1>Geography Quiz</h1>
+    <div id="quiz-container">
+        <p id="question"></p>
+        <ul id="options">
+            <li><input type="radio" name="answer" id="option1"><label for="option1" id="label1"></label></li>
+            <li><input type="radio" name="answer" id="option2"><label for="option2" id="label2"></label></li>
+            <li><input type="radio" name="answer" id="option3"><label for="option3" id="label3"></label></li>
+        </ul>
+        <button id="next-button">Next</button>
+    </div>
+    <p id="result"></p>
+
+    <script>
+        const questions = [
+            {
+                question: "What is the capital of France?",
+                options: ["London", "Madrid", "Paris", "Berlin"],
+                correctAnswer: "Paris"
+            },
+            {
+                question: "What is the capital of Japan?",
+                options: ["Tokyo", "Beijing", "Seoul", "Bangkok"],
+                correctAnswer: "Tokyo"
+            },
+            {
+                question: "What is the capital of Canada?",
+                options: ["Toronto", "Ottawa", "Vancouver", "Montreal"],
+                correctAnswer: "Ottawa"
+            },
+            // Add more questions here
+            {
+                question: "What is the capital of Brazil?",
+                options: ["Buenos Aires", "São Paulo", "Brasília", "Rio de Janeiro"],
+                correctAnswer: "Brasília"
+            },
+            {
+                question: "Which river is the longest in the world?",
+                options: ["Nile", "Amazon", "Mississippi", "Yangtze"],
+                correctAnswer: "Nile"
+            },
+            {
+                question: "What is the largest continent by land area?",
+                options: ["Africa", "Asia", "North America", "Europe"],
+                correctAnswer: "Asia"
+            },
+            {
+                question: "Which country is known as the Land of the Rising Sun?",
+                options: ["South Korea", "China", "Japan", "Thailand"],
+                correctAnswer: "Japan"
+            },
+            {
+                question: "What is the smallest country in the world?",
+                options: ["Monaco", "San Marino", "Vatican City", "Liechtenstein"],
+                correctAnswer: "Vatican City"
+            },
+            {
+                question: "Which African country is known as the Rainbow Nation?",
+                options: ["Nigeria", "Kenya", "South Africa", "Ghana"],
+                correctAnswer: "South Africa"
+            },
+            {
+                question: "What is the capital of Australia?",
+                options: ["Sydney", "Melbourne", "Canberra", "Brisbane"],
+                correctAnswer: "Canberra"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        const questionElement = document.getElementById("question");
+        const optionsElement = document.getElementById("options");
+        const resultElement = document.getElementById("result");
+
+        function loadQuestion() {
+            const question = questions[currentQuestion];
+            questionElement.textContent = question.question;
+
+            for (let i = 0; i < 3; i++) {
+                document.getElementById(`label${i + 1}`).textContent = question.options[i];
+                document.getElementById(`option${i + 1}`).value = question.options[i];
+            }
+        }
+
+        function checkAnswer() {
+            const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+            if (!selectedAnswer) return;
+
+            const answer = selectedAnswer.value;
+            const correctAnswer = questions[currentQuestion].correctAnswer;
+            if (answer === correctAnswer) {
+                score++;
+            }
+
+            currentQuestion++;
+
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+                selectedAnswer.checked = false;
+            } else {
+                displayResult();
+            }
+        }
+
+        function displayResult() {
+            optionsElement.style.display = "none";
+            resultElement.textContent = `You scored ${score} out of ${questions.length} questions.`;
+        }
+
+        loadQuestion();
+        document.getElementById("next-button").addEventListener("click", checkAnswer);
+    </script>
+</body>
+</html>
+
+

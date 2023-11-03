@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Country Population and Language Search</title>
+    <style>
+        /* CSS for styling */
+        #result {
+            font-family: Arial, sans-serif;
+            background-color: #F2F2F2;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        h2 {
+            color: #333;
+        }
+        p {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Country Population and Language Search</h1>
+    <!-- Country Search -->
+    <div>
+        <input type="text" id="countrySearchInput" placeholder="Search for a country...">
+        <button onclick="searchCountry()">Search Country</button>
+    </div>
+    <!-- Display Results -->
+    <div id="result"></div>
+    <script>
+        // Hardcoded country population and language data
+        const countryData = {
+            // ... (your existing data)
+            "USA": { population: 331002651, languages: ["English"] },
+            "China": { population: 1444216107, languages: ["Mandarin"] },
+            "India": { population: 1380004385, languages: ["Hindi", "English"] },
+            "Brazil": { population: 212559417, languages: ["Portuguese"] },
+            "Russia": { population: 145934462, languages: ["Russian"] },
+            "United Kingdom": { population: 67886011, languages: ["English"] },
+            "France": { population: 65273511, languages: ["French"] },
+            "Germany": { population: 83783942, languages: ["German"] },
+            "Canada": { population: 37742154, languages: ["English", "French"] },
+            "Australia": { population: 25499884, languages: ["English"] },
+            "Japan": { population: 126476461, languages: ["Japanese"] },
+            "South Korea": { population: 51269185, languages: ["Korean"] },
+            "Mexico": { population: 128932753, languages: ["Spanish"] },
+            "South Africa": { population: 59308690, languages: ["Zulu", "English", "Afrikaans"] },
+            "Nigeria": { population: 206139587, languages: ["English"] },
+            "Egypt": { population: 102334404, languages: ["Arabic"] },
+            "Italy": { population: 60461826, languages: ["Italian"] },
+            "Spain": { population: 46754778, languages: ["Spanish"] },
+            "Greece": { population: 10423054, languages: ["Greek"] },
+            "Turkey": { population: 84339067, languages: ["Turkish"] },
+            "Argentina": { population: 45195777, languages: ["Spanish"] },
+            "Chile": { population: 19116209, languages: ["Spanish"] },
+            "Peru": { population: 32971846, languages: ["Spanish"] },
+            "Colombia": { population: 50882891, languages: ["Spanish"] },
+            "Venezuela": { population: 28435940, languages: ["Spanish"] },
+            "Vietnam": { population: 97338579, languages: ["Vietnamese"] },
+            "Thailand": { population: 69799978, languages: ["Thai"] },
+            "Indonesia": { population: 273523615, languages: ["Indonesian"] },
+            "Bangladesh": { population: 164689383, languages: ["Bengali"] },
+            "Pakistan": { population: 220892340, languages: ["Urdu", "English"] },
+            "Iran": { population: 83992949, languages: ["Persian"] },
+            "Iraq": { population: 40222493, languages: ["Arabic", "Kurdish"] },
+            "Saudi Arabia": { population: 34813871, languages: ["Arabic"] },
+            "Netherlands": { population: 17134872, languages: ["Dutch"] },
+            "Belgium": { population: 11589616, languages: ["Dutch", "French", "German"] },
+            "Sweden": { population: 10099265, languages: ["Swedish"] },
+            "Norway": { population: 5421241, languages: ["Norwegian"] },
+            "Denmark": { population: 5792202, languages: ["Danish"] },
+            "Finland": { population: 5540720, languages: ["Finnish", "Swedish"] },
+            "Austria": { population: 9006398, languages: ["German"] },
+            "Switzerland": { population: 8654622, languages: ["German", "French", "Italian", "Romansh"] },
+            "Ghana": { population: 31072945, languages: ["English"] },
+            "Kenya": { population: 53771296, languages: ["Swahili", "English"] },
+        };
+        function searchCountry() {
+            const countrySearchInput = document.getElementById("countrySearchInput").value;
+            const resultDiv = document.getElementById("result");
+            const countryInfo = countryData[countrySearchInput];
+            if (countryInfo) {
+                const { population, languages } = countryInfo;
+                resultDiv.innerHTML = `
+                    <h2>Country: ${countrySearchInput}</h2>
+                    <p>Population: ${population}</p>
+                    <p>Languages: ${languages.join(", ")}`;
+            } else {
+                resultDiv.innerHTML = `<p style="color: red;">Country not found</p>`;
+            }
+        }
+        function searchLanguage() {
+            const languageSearchInput = document.getElementById("languageSearchInput").value;
+            const resultDiv = document.getElementById("result");
+            const countriesSpeakingLanguage = [];
+            for (const country in countryData) {
+                if (countryData[country].languages.includes(languageSearchInput)) {
+                    countriesSpeakingLanguage.push(country);
+                }
+            }
+            if (countriesSpeakingLanguage.length > 0) {
+                resultDiv.innerHTML = `
+                    <h2>Countries speaking ${languageSearchInput}:</h2>
+                    <ul>
+                        ${countriesSpeakingLanguage.map(country => `<li>${country}</li>`).join('')}
+                    </ul>`;
+            } else {
+                resultDiv.innerHTML = `<p style="color: red;">Language not found in any country</p>`;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Info Web Application Readme</title>
+</head>
+<body>
+    <h1>Country Info Web Application Readme</h1>
+    <p>This README file provides an overview of how to create a web application that displays information about a country using the RestCountries API, Python Flask, HTML, and CSS. The web application will allow users to search for a country by its name or code and view various details about the country.</p>
+
+    <h2>Prerequisites</h2>
+    <p>Before you start, make sure you have the following tools and libraries installed:</p>
+    <ul>
+        <li>Python: You will need Python to run the Flask application. You can download it from python.org.</li>
+        <li>Flask: Flask is a lightweight web framework for Python. You can install it using pip:
+            <pre>pip install flask</pre>
+        </li>
+        <li>HTML and CSS: Basic knowledge of HTML and CSS is required for creating and styling web pages.</li>
+        <li>Text editor or IDE: You can use any code editor or integrated development environment of your choice (e.g., Visual Studio Code, Sublime Text, PyCharm).</li>
+    </ul>
+
+    <h2>Getting Started</h2>
+    <h3>Set Up Your Project Directory</h3>
+    <p>Create a new directory for your project and navigate to it in your command line or terminal.</p>
+
+    <h3>Initialize a Flask App</h3>
+    <p>Create a Python script for your Flask application (e.g., app.py). You can use the following code as a template:</p>
+    <pre>
+        <code>from flask import Flask, render_template, request
+import requests
+
+app = Flask(__name)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/country_info', methods=['POST'])
+def country_info():
+    # Implement the RestCountries API request and data processing here
+    return render_template('country_info.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)</code>
+    </pre>
+
+    <h3>HTML Templates</h3>
+    <p>Create two HTML templates in a "templates" folder in your project directory: index.html and country_info.html. The index.html template will contain the search form, and the country_info.html template will display information about the selected country.</p>
+
+    <h3>CSS Styles</h3>
+    <p>Create a CSS file (e.g., styles.css) to style your web pages and include it in your HTML templates.</p>
+
+    <h3>Use RestCountries API</h3>
+    <p>To fetch country information from the RestCountries API, make an API request in the country_info route of your Flask application. You can use the requests library for this purpose.</p>
+    <pre>
+        <code>@app.route('/country_info', methods=['POST'])
+def country_info():
+    country_code = request.form['country_code']
+    # Make an API request to RestCountries and process the response data
+    return render_template('country_info.html', country_data=country_data)</code>
+    </pre>
+
+    <h3>Display Country Information</h3>
+    <p>In the country_info.html template, use Python variables to display information about the selected country.</p>
+    <pre>
+        <code>&lt;h1&gt;Country Information&lt;/h1&gt;
+&lt;p&gt;Country Name: {{ country_data.name }}&lt;/p&gt;
+&lt;p&gt;Population: {{ country_data.population }}&lt;/p&gt;
+&lt;!-- Add more country details as needed --&gt;</code>
+    </pre>
+
+    <h2>Run the Application</h2>
+    <p>Start your Flask application by running the following command in your project directory:</p>
+    <pre><code>python app.py</code></pre>
+    <p>Your web application should now be accessible at <a href="http://localhost:5000">http://localhost:5000</a>.</p>
+
+    <h2>Conclusion</h2>
+    <p>This README provides a basic outline of how to create a web application that displays information about a country using the RestCountries API, Python Flask, HTML, and CSS. You can expand and customize the application further by adding more features and styles as needed.</p>
+</body>
+</html>
